@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+   
+    <title>Fast Food Restaurant</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            background: url('https://images01.nicepagecdn.com/page/53/32/wordpress-theme-preview-533265.jpg') no-repeat center center fixed; 
+            background-size: cover;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        .menu, .total-price { 
+            background: rgba(0, 0, 0, 0.7); 
+            padding: 10px; 
+            border-radius: 10px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .order-list { 
+            list-style: none; 
+            padding: 0; 
+        }
+        .order-item { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            gap: 10px; 
+            margin: 5px 0; 
+            background: rgba(0, 0, 0, 0.7); 
+            padding: 5px; 
+            border-radius: 5px;
+        }
+        .remove-btn { 
+            background: red; 
+            color: white; 
+            border: none; 
+            padding: 5px; 
+            cursor: pointer; 
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Welcome to Fast Food Restaurant</h1>
+
+    <div class="menu">
+        <h2>Menu</h2>
+        <button onclick="addOrder('Burger', 25)">Burger 🍔 ($25)</button>
+        <button onclick="addOrder('Pizza', 80)">Pizza 🍕 ($80)</button>
+        <button onclick="addOrder('Pasta', 50)">Pasta 🍝 ($50)</button>
+        <button onclick="addOrder('Salad', 40)">Salad 🥗 ($40)</button>
+        <button onclick="addOrder('Sushi', 100)">Sushi 🍣 ($100)</button>
+        <button onclick="addOrder('Ice Cream', 30)">Ice Cream 🍦 ($30)</button>
+    </div>
+
+    <h2>Orders</h2>
+    <ul id="orders" class="order-list"></ul>
+
+    <div class="total-price">Total Price: $<span id="total">0</span></div>
+
+    <script>
+        let totalPrice = 0; 
+
+        function addOrder(item, price) {
+            const orderList = document.getElementById("orders");
+            const orderItem = document.createElement("li");
+            orderItem.className = "order-item";
+            
+            orderItem.innerHTML = `<span>${item} - $${price}</span> 
+                                   <button class="remove-btn" onclick="removeOrder(this, ${price})">❌ Remove</button>`;
+
+            orderList.appendChild(orderItem);
+            updateTotal(price);
+        }
+
+        function removeOrder(button, price) {
+            button.parentElement.remove();
+            updateTotal(-price);
+        }
+
+        function updateTotal(amount) {
+            totalPrice += amount;
+            document.getElementById("total").textContent = totalPrice;
+        }
+    </script>
+
+</body>
+</html>
